@@ -1,13 +1,21 @@
 function calculate() {
-  const distance = document.getElementById("distance").value;
-  const factor = document.getElementById("transport").value;
+  const distanceEl = document.getElementById("distance");
+  const transportEl = document.getElementById("transport");
+  const resultEl = document.getElementById("result");
 
-  if (distance <= 0) {
+  const distance = parseFloat((distanceEl.value || "").replace(',', '.'));
+  const factor = parseFloat((transportEl.value || "").replace(',', '.'));
+
+  if (isNaN(distance) || distance <= 0) {
     alert("Digite uma distância válida.");
     return;
   }
 
+  if (isNaN(factor) || factor <= 0) {
+    alert("Selecione um tipo de transporte válido.");
+    return;
+  }
+
   const co2 = distance * factor;
-  document.getElementById("result").textContent =
-    Emissão estimada: ${co2.toFixed(2)} kg de CO₂;
+  resultEl.textContent = `Emissão estimada: ${co2.toFixed(2)} kg de CO₂`;
 }
